@@ -1,0 +1,22 @@
+﻿################################################################################
+# Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/GameLife/v16/ipch/AutoPCH/72f603cbefb59118/GAMELIFE.ipch
+/.vs/GameLife/v16/ipch/AutoPCH/d0554c56e69b707b/GAMELIFE.ipch
+/.vs/GameLife/v16/.suo
+/.vs/GameLife/v16/Browse.VC.db
+/.vs/GameLife/v16/Browse.VC.opendb
+/Debug/GameLife.ilk
+/Debug/GameLife.pdb
+/GameLife/Debug/GameLife.tlog/CL.command.1.tlog
+/GameLife/Debug/GameLife.tlog/CL.read.1.tlog
+/GameLife/Debug/GameLife.tlog/CL.write.1.tlog
+/GameLife/Debug/GameLife.tlog/GameLife.lastbuildstate
+/GameLife/Debug/vc142.pdb
+/GameLife/Debug/vc142.idb
+/GameLife/Debug/GameLife.obj
+/GameLife/Debug/GameLife.log
+/GameLife/Debug/GameLife.tlog/link.write.1.tlog
+/GameLife/Debug/GameLife.tlog/link.read.1.tlog
+/GameLife/Debug/GameLife.tlog/link.command.1.tlog
