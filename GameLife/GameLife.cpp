@@ -8,15 +8,15 @@ const unsigned int HEIGHT = 600;
 
 // =============================================================================
 
-class m_field
+class Field
 {
 private:
 
-    unsigned int m_cells[WIDTH][HEIGHT];
+    char m_cells[WIDTH][HEIGHT];
 
 public:
 
-    m_field() 
+    Field() 
     {
         for (int i = 0; i < WIDTH; i++)
             for (int j = 0; j < HEIGHT; j++)
@@ -138,24 +138,101 @@ public:
                 }
             }
     }
+
+    ~Field() { }
 };
 
+// =============================================================================
+
+class Presenter
+{
+private:
+
+    sf::RenderWindow m_window;
+
+    Field m_field;
+
+public:
+
+    Presenter() :
+        m_window(sf::VideoMode(WIDTH, HEIGHT), "Game of Life", sf::Style::Close | sf::Style::Resize | sf::Style::Titlebar),
+        m_field() {}
+
+    void review()
+    {
+
+        sf::Event event;
+
+        while (m_window.pollEvent(event))
+        {
+            switch (event.type)
+            {
+            case sf::Event::Closed:
+                m_window.close();
+                break;
+            case sf::Event::MouseButtonPressed:
+                m_field.set_cell(sf::Mouse::getPosition(m_window).x, sf::Mouse::getPosition(m_window).y);
+                std::cout << sf::Mouse::getPosition(m_window).x << sf::Mouse::getPosition(m_window).y << std::endl;
+                break;
+            case sf::Event::KeyPressed:
+                handle_key_pressed(event.key.code);
+                std::cout << "space" << std::endl;
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    void handle_key_pressed(const sf::Keyboard::Key code)
+    {
+        switch (code)
+        {
+        case sf::Keyboard::Space:
+            m_field.update();
+            break;
+        default:
+            break;
+        }
+    }
+
+    void render()
+    {
+        sf::Vertex cell;
+
+        m_window.clear();
+
+        for (int i = 0; i < WIDTH; i++)
+            for (int j = 0; j < HEIGHT; j++)
+            {
+                cell.position = sf::Vector2f(i, j);
+                if (m_field.get_cell_state(i, j))
+                    cell.color = sf::Color::White;
+                else
+                    cell.color = sf::Color::Black;
+
+                m_window.draw(&cell, 1, sf::Points);
+            }
+               
+        m_window.display();
+    }
+
+    void run()
+    {
+        while (m_window.isOpen())
+        {
+            review();
+            render();
+        }
+    }
+
+    ~Presenter() {}
+};
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Game of Life");
+    Presenter m_presenter;
+    m_presenter.run();
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear(sf::Color::Black);
-        window.display();
-    }
     return 0;
 }
